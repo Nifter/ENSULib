@@ -1,3 +1,25 @@
+# Environmental Students Union Library Catalogue Web Application
+
+Author: Alexei Krassikov
+
+Description:
+
+A web application written in Ruby on Rails for the University of Toronto
+Environmental Students Union (ENSU). This application maintains a
+database for the academic books owned by ENSU, and tracks any
+borrowed books.
+
+
+
+
+
+
+
+
+
+
+
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create
