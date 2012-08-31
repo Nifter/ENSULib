@@ -22,3 +22,6 @@
 *~
 .DS_Store
 .project
+
+# Ignore Aptana settings
+.settings
