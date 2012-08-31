@@ -1,4 +1,8 @@
 ENSULib::Application.routes.draw do
+  get "pages/home"
+
+  get "pages/contact"
+
   get "home/index"
   
 
