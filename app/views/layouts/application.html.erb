@@ -3,10 +3,29 @@
 	<head>
 		<title> <%= title %> </title>
 		<%= csrf_meta_tag %>
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"</script>
+		<![endif]-->
 		<%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
 		<%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
+		<!--[if lt IE 8]>
+			<%= stylesheet_link_tag 'blueprint/ie' %>
+		<![endif]-->
+		<%= stylesheet_link_tag 'custom', :media => 'screen' %>
 	</head>
 	<body>
-		<%= yield %>
+		<div class="container">
+			<header>
+				<ul>
+					<li><%= link_to "Home", 'http://www.google.ca' %></li>
+					<li><%= link_to "Help", 'http://www.google.ca' %></li>
+					<li><%= link_to "Sign in", 'http://www.google.ca' %></li>
+				</ul>
+				<%= image_tag("logo.png", :alt => "ENSU Library Catalogue", :class => "round")%>
+			</header>
+			<section class="round">
+				<%= yield %>
+			</section>
+		</div>
 	</body>
-</html>
+</htmxl>
