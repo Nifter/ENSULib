@@ -16,12 +16,14 @@
 	<body>
 		<div class="container">
 			<header>
-				<ul>
-					<li><%= link_to "Home", 'http://www.google.ca' %></li>
-					<li><%= link_to "Help", 'http://www.google.ca' %></li>
-					<li><%= link_to "Sign in", 'http://www.google.ca' %></li>
-				</ul>
 				<%= image_tag("logo.png", :alt => "ENSU Library Catalogue", :class => "round")%>
+				<nav class="round">
+					<ul>
+						<li><%= link_to "Home", 'http://www.google.ca' %></li>
+						<li><%= link_to "Help", 'http://www.google.ca' %></li>
+						<li><%= link_to "Sign in", 'http://www.google.ca' %></li>
+					</ul>
+				</nav>
 			</header>
 			<section class="round">
 				<%= yield %>
