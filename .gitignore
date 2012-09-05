@@ -25,3 +25,4 @@
 
 # Ignore Aptana settings
 .settings
+*.log

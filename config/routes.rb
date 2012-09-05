@@ -1,9 +1,12 @@
 ENSULib::Application.routes.draw do
   
+  get "users/new"
+
   root :to => 'pages#home'
   match '/contact', :to => 'pages#contact' #pages controller, action contact
   match '/about', :to => 'pages#about'
   match '/help', :to => 'pages#help'
+  match '/signup', :to => 'users#new'
   get "pages/home"
   get "home/index"
   
