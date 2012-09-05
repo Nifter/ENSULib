@@ -1,9 +1,9 @@
 <header>
-	<%= image_tag("logo.png", :alt => "ENSU Library Catalogue", :class => "round")%>
+	<%= link_to logo, root_path %>
 	<nav class="round">
 		<ul>
-			<li><%= link_to "Home", 'http://www.google.ca' %></li>
-			<li><%= link_to "Help", 'http://www.google.ca' %></li>
+			<li><%= link_to "Home", root_path %></li>
+			<li><%= link_to "Help", help_path %></li>
 			<li><%= link_to "Sign in", 'http://www.google.ca' %></li>
 		</ul>
 	</nav>

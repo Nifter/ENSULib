@@ -4,9 +4,14 @@ module ApplicationHelper
   def title
     base_title = "ENSU Library Catalogue"
     if @title.nil?
-      return base_title
+      base_title
     else
-      return "#{base_title} | #{@title}"
+      "#{base_title} | #{@title}"
     end
   end
+  
+  def logo
+    image_tag("logo.png", :alt => "ENSU Library Catalogue", :class => "round")
+  end
+  
 end
