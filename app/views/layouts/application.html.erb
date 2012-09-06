@@ -12,6 +12,7 @@
 				<%= yield %>
 			</section>
 			<%= render 'layouts/footer' %>
+			<%= if Rails.env.development? then debug(params) end %>
 		</div>
 	</body>
 </htmxl>

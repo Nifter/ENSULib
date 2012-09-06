@@ -1,6 +1,7 @@
 ENSULib::Application.routes.draw do
   
-  get "users/new"
+  resources :users # Provides all of the RESTful routes
+  
 
   root :to => 'pages#home'
   match '/contact', :to => 'pages#contact' #pages controller, action contact
