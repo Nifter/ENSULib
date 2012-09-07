@@ -18,6 +18,21 @@ describe UsersController do
       get :show, :id => @user.id
       assigns(:user).should == @user # Pulls out an instance of @user from the Users controller if it is assigned in the controller
     end
+    
+    it "should have the correct title" do
+      get :show, :id => @user.id
+      response.should have_selector('title', :content => @user.name)
+    end
+    
+    it "should have the user's name" do
+      get :show, :id => @user
+      response.should have_selector('h1', :content => @user.name)
+    end
+    
+    it "should have a profile image" do
+      get :show, :id => @user
+      response.should have_selector('h1>img', :class => "gravatar") # looks for the img tag between an h1 tag, with a class gravatar
+    end
   end
 
   describe "GET 'new'" do
