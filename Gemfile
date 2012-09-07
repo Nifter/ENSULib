@@ -31,6 +31,7 @@ end
 group :test do
   gem 'respec'
   gem 'webrat'
+  gem 'factory_girl_rails', '1.0'
 end
 
 # To use ActiveModel has_secure_password
