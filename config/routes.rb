@@ -1,13 +1,17 @@
 ENSULib::Application.routes.draw do
   
-  resources :users # Provides all of the RESTful routes
   
+
+  resources :users # Provides all of the RESTful routes
+  resources :sessions, :only => [:new, :create, :destroy]
 
   root :to => 'pages#home'
   match '/contact', :to => 'pages#contact' #pages controller, action contact
   match '/about', :to => 'pages#about'
   match '/help', :to => 'pages#help'
   match '/signup', :to => 'users#new'
+  match '/signin', :to => 'sessions#new'
+  match '/signout', :to => 'sessopms#destroy'
   get "pages/home"
   get "home/index"
   
