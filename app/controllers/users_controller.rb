@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  before_filter :authenticate, :only => [:edit, :update]
+  
   def show
     @user = User.find(params[:id])
     @title = @user.name
@@ -29,11 +32,18 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user]) # updates the data of @user from the params stored in params[:user]
-      # it worked
-      redirect_to user_path(@user), :flash => { :success => "Profile updated!" }
+      redirect_to user_path(@user), :flash => { :success => "Profile updated." }
     else
       @title = "Edit user"
       render 'edit'      
     end
   end
+  
+  private
+    def authenticate
+      if !signed_in?
+        redirect_to signin_path, :notice => "Please sign in to access this page."
+      end 
+    end
+
 end
