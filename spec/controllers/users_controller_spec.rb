@@ -46,5 +46,18 @@ describe UsersController do
       response.should have_selector('title', :content => "Sign up" )
     end
   end
+  
+  describe "success" do
+    
+    before(:each) do
+      @attr = { :name => "Test User", :email => "user@example.com",
+                :password => "password", :password_confirmation => "password" }
+    end
+    
+    it "should sign the user in" do
+      post :create, :user => @attr
+      controller.should be_signed_in
+    end
+  end
 
 end
