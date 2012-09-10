@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+include SessionsHelper
+
   def new
     @title = "Sign in"
   end
@@ -11,7 +13,8 @@ class SessionsController < ApplicationController
       @title = "Sign in"
       render 'new'
     else
-      # Handle success
+      sign_in user
+      redirect_to user_path(user) #redirect to the user's profile page
     end
   end
   
