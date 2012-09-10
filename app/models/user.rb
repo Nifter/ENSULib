@@ -21,14 +21,15 @@ class User < ActiveRecord::Base
   
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
-    (user && user.has_password?(submitted_password)) ? user : nil
+    (user && user.has_password?(submitted_password)) ? user : nil # Does what the bottom two lines do
     #return nil  if user.nil?
     #return user if user.has_password?(submitted_password) 
   end
     
   def self.authenticate_with_salt(id, cookie_salt)
     user = find_by_id(id)
-    (user && user.salt == cookie_salt) ? user : nil
+    # If a user exists and if the user's salt matches the cookie salt, return the user, otherwise return nil
+    (user && (user.salt == cookie_salt)) ? user : nil
   end
   
   private

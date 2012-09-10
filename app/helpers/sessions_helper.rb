@@ -14,7 +14,7 @@ module SessionsHelper
   end
   
   def signed_in?
-    !@current_user.nil?
+    !current_user.nil? # calls the current_user method. If it returns a user, then signed in, otherwise not signed in
   end
   
   def sign_out
@@ -24,7 +24,7 @@ module SessionsHelper
   
   private  
     def user_from_remember_token
-      User.authenticate_with_salt(*remember_token) # * unwraps the array 'remember_token' and passes in the contents of the array as each different argument
+      User.authenticate_with_salt(*remember_token) # '*' unwraps the array 'remember_token' and passes in the contents of the array as each different argument
     end
     
     def remember_token

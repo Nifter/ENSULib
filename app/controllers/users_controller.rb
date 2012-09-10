@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     #raise params[:user].inspect    # Raises an exception with the params shown 
     @user = User.new(params[:user])
     if @user.save
+      sign_in @user
       redirect_to user_path(@user), :flash => { :success => "Welcome to the ENSU library catalogue!" }
     else
       @title = "Sign up"

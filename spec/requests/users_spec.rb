@@ -58,7 +58,7 @@ describe "Users" do
         fill_in "Email",    :with => user.email
         fill_in "Password", :with => user.password
         click_button
-        conroller.should be_signed_in
+        controller.should be_signed_in
         click_link "Sign out"
         controller.should_not be_signed_in
       end
