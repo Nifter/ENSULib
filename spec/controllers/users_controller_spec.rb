@@ -59,5 +59,59 @@ describe UsersController do
       controller.should be_signed_in
     end
   end
+  
+  describe "POST 'create'" do
+    
+    describe "failure" do
+     
+      before(:each) do
+        @attr = { :name => "", :email => "", :password => "", :password_confirmation => "" }
+      end
+     
+      it "should have the right title" do
+        post :create, :user => @attr
+        response.should have_selector('title', :content => "Sign up")
+      end
+      
+      it "should render the 'new' page" do
+        post :create, :user => @attr
+        response.should render_template('new')
+      end
+      
+      it "should not create a user" do
+        # Do the following lambda block of code, then check to make sure that the block of code did not alter the user count
+        lambda do
+          post :create, :user => @attr
+        end.should_not change(User, :count)
+      end
+
+    end 
+    
+    describe "success" do
+      
+      before(:each) do
+        @attr = { :name => "TestUser", :email => "test@example.com",
+                  :password => "password", :password_confirmation => "password" }
+      end
+      
+      it "should create a user" do
+        lambda do
+          post :create, :user => @attr
+        end.should change(User, :count).by(1)
+      end
+      
+      it "should redirect to the user show page" do
+        post :create, :user => @attr
+        response.should redirect_to(user_path(assigns(:user))) # assigns(:user) returns the @user defined in the given controller's action method  
+      end
+      
+      it "should have a welcome message" do
+        post :create, :user => @attr
+        flash[:success].should =~ /welcome/i
+      end
+    end
+    
+    
+  end  
 
 end
