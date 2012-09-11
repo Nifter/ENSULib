@@ -4,9 +4,9 @@ describe User do
   
   before(:each) do
     @attr = { :name => "Example User",
-              :email => "user@example.com",
-              :password => "foobar",
-              :password_confirmation => "foobar" }
+              :email => "exampleuser99@example.com",
+              :password => "password",
+              :password_confirmation => "password" }
   end
   
   it "should create a new instance given a valid attribute" do
@@ -146,6 +146,26 @@ describe User do
       it "should return the user on email/password match" do
         User.authenticate(@attr[:email], @attr[:password]).should == @user
       end
+    end
+  end
+  
+  describe "admin attrribute" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+    
+    it "should respond to admin" do
+      @user.should respond_to(:admin)
+    end
+    
+    it "should not be an admin by default" do
+      @user.should_not be_admin # calls @user.admin? and checks it to be false
+    end
+    
+    it "should be convertible to an admin" do
+      @user.toggle!(:admin)
+      @user.should be_admin
     end
   end
 end
