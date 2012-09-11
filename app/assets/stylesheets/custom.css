@@ -152,3 +152,11 @@ footer nav {
 	font-size: 12px;
 	list-style: square;
 }
+
+ul.users {
+	margin-top: 1em;
+}
+
+ul.users li {
+	list-style: none;
+}
