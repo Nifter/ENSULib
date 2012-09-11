@@ -9,6 +9,7 @@ gem 'pg'
 
 gem 'json'
 gem 'gravatar_image_tag'
+gem 'will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -27,6 +28,7 @@ gem 'jquery-rails'
 
 group :development do
   gem 'rspec-rails'
+  gem 'faker'
 end
 
 group :test do

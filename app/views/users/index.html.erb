@@ -1,10 +1,10 @@
 <h1>All users</h1>
 
+<%= will_paginate @users %>
+
 <ul class="users">
-	<% @users.each do |user| %>
-		<li>
-			<%= gravatar_for user, :size => 30 %>
-			<%= link_to user.name, user %>
-		</li>
-	<% end %>
+	<!-- Automatically takes the paginated users instance and iterates over it, sending each individual user to the _user partial -->
+	<%= render @users %>
 </ul>
+
+<%= will_paginate @users %>
