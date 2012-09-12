@@ -1,6 +1,22 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  email              :string(255)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  encrypted_password :string(255)
+#  salt               :string(255)
+#  admin              :boolean          default(FALSE)
+#
+
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   attr_accessor :password
+  
+  has_many :books, :dependent => :nullify # Set book's user_id to nil upon destroy of user 
   
   email_regex = /\A[\w\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   

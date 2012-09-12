@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  email              :string(255)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  encrypted_password :string(255)
+#  salt               :string(255)
+#  admin              :boolean          default(FALSE)
+#
+
 require 'spec_helper'
 
 describe User do
@@ -166,6 +180,30 @@ describe User do
     it "should be convertible to an admin" do
       @user.toggle!(:admin)
       @user.should be_admin
+    end
+  end
+  
+  describe "book associations" do
+    
+    before(:each) do
+      @user = User.create(@attr)
+      @book1 = Factory(:book, :user => @user, :created_at => 1.day.ago)
+      @book2 = Factory(:book, :user => @user, :created_at => 1.hour.ago)
+    end
+    
+    it "should have a books attribute" do
+      @user.should respond_to(:books)
+    end
+    
+    it "should have the right books from most recently updated to least recently updated" do
+      @user.books.should be == [@book2, @book1]
+    end
+    
+    it "should unassociate books after destroy" do
+      @user.destroy
+      [@book1, @book2].each do |book|
+        Book.find_by_id(book.id).user_id.should be_nil 
+      end
     end
   end
 end
