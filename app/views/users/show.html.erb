@@ -2,3 +2,10 @@
 	<%= gravatar_for @user %>
 	<%= @user.name %>
 </h1>
+<% if @user.books.any? %>
+	<table class="books" summary="User's borrowed books">
+		<%= render @books %>
+	</table>
+	<%= will_paginate @books %>
+<% else %>
+<% end %>

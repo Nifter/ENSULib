@@ -14,5 +14,6 @@ Factory.define :book do |book|
   book.title "Book Name"
   book.author "Some Author"
   book.publication_year 1990
+  book.borrowed_at Time.now
   book.association :user
 end

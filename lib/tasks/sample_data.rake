@@ -20,6 +20,16 @@ namespace :db do # put under the 'rake db:something' heading
                    :password => password,
                    :password_confirmation => password)
     end
+    
+    User.all(:limit => 6).each do |user|
+      50.times do
+        user.books.create!(:title => Faker::Lorem.words(1),
+                           :author => Faker::Lorem.words(1),
+                           :call_number => Faker::Lorem.words(1),
+                           :publication_year => (2000 + user.id), 
+                           :borrowed_at => Time.now)
+      end
+    end
   end
   
 end

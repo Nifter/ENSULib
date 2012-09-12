@@ -100,6 +100,20 @@ describe UsersController do
       get :show, :id => @user
       response.should have_selector('h1>img', :class => "gravatar") # looks for the img tag between an h1 tag, with a class gravatar
     end
+    
+    it "should show the user's books" do
+      book1 = Factory(:book, :user => @user, :title => "Book one")
+      book2 = Factory(:book, :user => @user, :title => "Book two")
+      get :show, :id => @user
+      response.should have_selector('span.book_title', :content => book1.title)
+      response.should have_selector('span.book_title', :content => book2.title)
+    end
+    
+    it "should paginate books" do
+      35.times { Factory(:book, :user => @user, :title => "Test Book") }
+      get :show, :id => @user
+      response.should have_selector('div.pagination')
+    end
   end
 
   describe "GET 'new'" do

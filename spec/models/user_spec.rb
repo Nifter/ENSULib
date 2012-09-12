@@ -187,8 +187,8 @@ describe User do
     
     before(:each) do
       @user = User.create(@attr)
-      @book1 = Factory(:book, :user => @user, :created_at => 1.day.ago)
-      @book2 = Factory(:book, :user => @user, :created_at => 1.hour.ago)
+      @book1 = Factory(:book, :user => @user, :borrowed_at => 1.day.ago)
+      @book2 = Factory(:book, :user => @user, :borrowed_at => 1.hour.ago)
     end
     
     it "should have a books attribute" do

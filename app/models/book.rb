@@ -10,14 +10,16 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  user_id          :integer
+#  borrowed_at      :datetime
 #
 
 class Book < ActiveRecord::Base
-  attr_accessible :author, :call_number, :publication_year, :title, :user_id
+  attr_accessible :author, :borrowed_at, :call_number, :publication_year, :title, :user_id
   
   belongs_to :user
   
-  default_scope :order => "books.updated_at DESC" # ordered from most recent to least recently updated
+  #default_scope :order => "books.updated_at DESC" # ordered from most recent to least recently updated
+  default_scope :order => "books.borrowed_at DESC" # ordered from most recent to least recently borrowed
   
   validates :author, :presence => true,
                      :length => { :maximum => 40 }

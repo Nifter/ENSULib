@@ -1,0 +1,10 @@
+<tr>
+	<td class="book">
+		<span class="book_title">
+			<%= book.title %>
+		</span>
+		<span class="timestamp">
+			Borrowed <%= time_ago_in_words(book.borrowed_at) %> ago
+		</span>
+	</td>
+</tr>
