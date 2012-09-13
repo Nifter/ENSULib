@@ -54,12 +54,6 @@ class UsersController < ApplicationController
   end
   
   private
-    def authenticate
-      if !signed_in?
-        # store the location of where the user originally wished to go as a session varialble
-        deny_access
-      end 
-    end
     
     def correct_user
       @user = User.find(params[:id])

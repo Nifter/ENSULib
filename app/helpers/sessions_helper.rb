@@ -26,6 +26,13 @@ module SessionsHelper
     user == current_user
   end
   
+  def authenticate
+    if !signed_in?
+      # store the location of where the user originally wished to go as a session varialble
+      deny_access
+    end 
+  end
+  
   def deny_access
     store_location
     redirect_to signin_path, :notice => "Please sign in to access this page."

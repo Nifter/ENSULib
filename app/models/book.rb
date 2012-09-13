@@ -21,10 +21,11 @@ class Book < ActiveRecord::Base
   #default_scope :order => "books.updated_at DESC" # ordered from most recent to least recently updated
   default_scope :order => "books.borrowed_at DESC" # ordered from most recent to least recently borrowed
   
+  validates :title, :presence => true,
+                    :length => { :maximum => 60 }
   validates :author, :presence => true,
                      :length => { :maximum => 40 }
   validates :call_number, :length => { :maximum => 40 }
-  validates :publication_year, :length => { :is => 4 }
-  validates :title, :presence => true,
-                    :length => { :maximum => 60 }
+  validates :publication_year, :presence => true,
+                               :length => { :is => 4 }
 end

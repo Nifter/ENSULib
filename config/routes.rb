@@ -4,6 +4,7 @@ ENSULib::Application.routes.draw do
 
   resources :users # Provides all of the RESTful routes
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :books
   
 
   root :to => 'pages#home'
@@ -13,8 +14,6 @@ ENSULib::Application.routes.draw do
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
-  get "pages/home"
-  get "home/index"
   
   
   
