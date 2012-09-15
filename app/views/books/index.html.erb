@@ -1,1 +1,11 @@
-<h1>Index page</h1>
+<h1>All books</h1>
+
+<%= will_paginate @books %>
+
+	<%# Automatically takes the paginated books instance and iterates over it,
+	sending each individual user to the _user partial %>
+	<table class="books" summary="All books in the library">
+		<%= render @books %>
+	</table>
+
+<%= will_paginate @books %>

@@ -193,6 +193,14 @@ table.books tr td.book span.timestamp {
 	color: #666;
 }
 
+table.books tr td.book span.author{
+	display: block;
+}
+
+table.books tr td.book span.publication_year{
+	display: block;
+}
+
 div.user_info img {
 	padding-right: 0.1em;
 }

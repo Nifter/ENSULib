@@ -1,10 +1,23 @@
 <tr>
 	<td class="book">
-		<span class="book_title">
-			<%= book.title %>
-		</span>
-		<span class="timestamp">
-			Borrowed <%= time_ago_in_words(book.borrowed_at) %> ago
-		</span>
+		<%= link_to book_path(book), :class => "book_link" do %>
+			<span class="book_title">
+				Title: <%= book.title %>
+			</span>
+			<span class="author">
+				Author: <%= book.author %>
+			</span>
+			<span class="publication_year">
+				Publication year: <%= book.publication_year %>
+			</span>
+			<span class="timestamp">
+				<% if book.borrowed_at %>
+					Borrowed <%= time_ago_in_words(book.borrowed_at) %> ago
+				<% else %>
+					In stock
+				<% end %>
+			</span>
+		<% end %>
+		<%= render "books/delete_book_link", :book => book %>
 	</td>
 </tr>

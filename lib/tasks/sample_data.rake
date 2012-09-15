@@ -1,8 +1,8 @@
 task :sample_data => :environment do
-  require 'faker'  
+  require 'faker'
 end
 
-namespace :db do # put under the 'rake db:something' heading 
+namespace :db do # put under the 'rake db:something' heading
   desc "Fill database with sample data"
   task :populate => :environment do
     Rake::Task['db:reset'].invoke # runs rake db:reset
@@ -20,16 +20,15 @@ namespace :db do # put under the 'rake db:something' heading
                    :password => password,
                    :password_confirmation => password)
     end
-    
+
     User.all(:limit => 6).each do |user|
-      50.times do
-        user.books.create!(:title => Faker::Lorem.words(1),
-                           :author => Faker::Lorem.words(1),
-                           :call_number => Faker::Lorem.words(1),
-                           :publication_year => (2000 + user.id), 
+      20.times do
+        user.books.create!(:title => Faker::Company.bs.titleize,
+                           :author => Faker::Name.name,
+                           :call_number => Faker::PhoneNumber.phone_number,
+                           :publication_year => 2000,
                            :borrowed_at => Time.now)
       end
     end
   end
-  
 end

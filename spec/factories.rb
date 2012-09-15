@@ -10,10 +10,11 @@ Factory.sequence :email do |n|
 end
 
 Factory.define :book do |book|
-  book.call_number "Letters2421.323"
   book.title "Book Name"
   book.author "Some Author"
   book.publication_year 1990
-  book.borrowed_at Time.now
-  book.association :user
+end
+
+Factory.define :borrowed_book, :parent => :user do |book|
+  book.after_create { |a| Factory(:book, :user => a) }
 end

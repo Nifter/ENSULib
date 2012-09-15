@@ -3,7 +3,8 @@
 <%= will_paginate @users %>
 
 <ul class="users">
-	<!-- Automatically takes the paginated users instance and iterates over it, sending each individual user to the _user partial -->
+	<%# Automatically takes the paginated users instance and iterates over it,
+	sending each individual user to the _user partial %>
 	<%= render @users %>
 </ul>
 
