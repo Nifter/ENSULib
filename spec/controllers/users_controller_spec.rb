@@ -78,18 +78,18 @@ describe UsersController do
     end
 
     it "should be successful" do
-      get :show, :id => @user.id
+      get :show, :id => @user
       response.should be_success
     end
 
     it "should find the correct user" do
-      get :show, :id => @user.id
+      get :show, :id => @user
       # Pulls out an instance of @user from the Users controller if it is assigned in the controller
       assigns(:user).should == @user
     end
 
     it "should have the correct title" do
-      get :show, :id => @user.id
+      get :show, :id => @user
       response.should have_selector('title', :content => @user.name)
     end
 

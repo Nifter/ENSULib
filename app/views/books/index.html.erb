@@ -1,5 +1,7 @@
 <h1>All books</h1>
 
+<p><%= link_to "Add new book (placeholder link)", new_book_path %></p>
+
 <%= will_paginate @books %>
 
 	<%# Automatically takes the paginated books instance and iterates over it,

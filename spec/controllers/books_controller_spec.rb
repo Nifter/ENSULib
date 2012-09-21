@@ -76,17 +76,61 @@ describe BooksController do
     end
   end
 
-  describe "POST 'create'" do
+  describe "GET 'show'" do
+
     before(:each) do
-      @user = test_sign_in(Factory(:user))
+      @user = Factory(:user)
+      test_sign_in(@user)
+      @book = Factory(:book)
     end
 
-    describe "failure" do
+    it "should be successful" do
+      get :show, :id => @book
+      response.should be_success
+    end
+
+    it "should find the correct book" do
+      get :show, :id => @book
+      assigns(:book).should be == @book
+    end
+
+    it "should have the correct title" do
+      get :show, :id => @book
+      response.should have_selector('title', :content => @book.title)
+    end
+
+    it "should have the book's title" do
+      get :show, :id => @book
+      response.should have_selector('h1', :content => @book.title)
+    end
+
+    it "should have the corrent author" do
+      get :show, :id => @book
+      response.should have_selector('span.author', :content => @book.author)
+    end
+
+    it "should have the corrent publication year" do
+      get :show, :id => @book
+      response.should have_selector('span.publication_year',
+                                    :content => @book.publication_year)
+    end
+
+    it "should show book's borrow status" do
+      get :show, :id => @book
+      response.should have_selector('span.borrow_status',
+                                    :content => @book.borrowed_at)
+    end
+
+  end
+
+  describe "POST 'create'" do
+
+    describe "for non-signed-in users" do
 
       before(:each) do
-        @attr = { :title => "", :author => "",
-                  :call_number => "", :publication_year => 0,
-                  :borrowed_at => Time.now}
+        @user = test_sign_in(Factory(:user))
+        @attr = { :title => "New title", :author => "Some Author",
+                  :publication_year => 2000 }
       end
 
       it "should not create a book" do
@@ -94,41 +138,79 @@ describe BooksController do
           post :create, :book => @attr
         end.should_not change(Book, :count)
       end
-
-      it "should have the right title" do
-        post :create, :book => @attr
-        response.should have_selector('title', :content => "Create book")
-      end
-
-      it "should render the 'new' page" do
-        post :create, :book => @attr
-        response.should render_template('new')
-      end
     end
 
-    describe "success" do
-
+    describe "for signed-in users" do
       before(:each) do
-        @attr = { :title => "Book title", :author => "Book author", :publication_year => 2000}
+        @user = test_sign_in(Factory(:user))
+        @attr = { :title => "New title", :author => "Some Author",
+                  :publication_year => 2000 }
       end
 
-      it "should create a book" do
+      it "should not create a book" do
         lambda do
           post :create, :book => @attr
-        end.should change(Book, :count).by(1)
-      end
-
-      it "should redirect to the book show page" do
-        post :create, :book => @attr
-        test_book = assigns(:book)
-        test_book.should_not be_nil
-        response.should redirect_to(book_path(test_book)) # assigns(:book) returns the @book defined in the given controller's action method
-      end
-
-      it "should have a success message" do
-        post :create, :book => @attr
-        flash[:success].should =~ /added/i
+        end.should_not change(Book, :count)
       end
     end
+
+    describe "for signed-in admins" do
+      before(:each) do
+        @user = test_sign_in(Factory(:user))
+        @user.toggle!(:admin)
+      end
+
+      describe "failure" do
+
+        before(:each) do
+          @attr = { :title => "", :author => "",
+                    :call_number => "", :publication_year => 0,
+                    :borrowed_at => Time.now}
+        end
+
+        it "should not create a book" do
+          lambda do
+            post :create, :book => @attr
+          end.should_not change(Book, :count)
+        end
+
+        it "should have the right title" do
+          post :create, :book => @attr
+          response.should have_selector('title', :content => "Create book")
+        end
+
+        it "should render the 'new' page" do
+          post :create, :book => @attr
+          response.should render_template('new')
+        end
+      end
+
+      describe "success" do
+
+        before(:each) do
+          @attr = { :title => "Book title", :author => "Book author", :publication_year => 2000}
+        end
+
+        it "should create a book" do
+          lambda do
+            post :create, :book => @attr
+          end.should change(Book, :count).by(1)
+        end
+
+        it "should redirect to the book show page" do
+          post :create, :book => @attr
+          test_book = assigns(:book)
+          test_book.should_not be_nil
+          response.should redirect_to(book_path(test_book)) # assigns(:book) returns the @book defined in the given controller's action method
+        end
+
+        it "should have a success message" do
+          post :create, :book => @attr
+          flash[:success].should =~ /added/i
+        end
+      end
+    end
+
   end
+
 end

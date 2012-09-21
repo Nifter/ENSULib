@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_filter :authenticate
+  before_filter :admin_user_authenticate, :only => [:new, :create, :edit, :update, :destroy]
 
   def index
     @books = Book.paginate(:page => params[:page], :per_page => 30)
@@ -8,7 +9,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @title = "Show book"
+    @title = @book.title
   end
 
   def new
@@ -17,10 +18,10 @@ class BooksController < ApplicationController
   end
 
   def create
-    #raise params[:book].inspect    # Raises an exception with the params shown
     @book = Book.new(params[:book])
     if @book.save
-      redirect_to book_path(@book), :flash => { :success => "New book has been added to the database." }
+      redirect_to book_path(@book),
+      :flash => { :success => "New book has been added to the database." }
     else
       @title = "Create book"
       render 'new'

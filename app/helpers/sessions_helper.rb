@@ -30,12 +30,21 @@ module SessionsHelper
     "active" if (params[:controller] == controller_name && params[:action] == page_name)
   end
 
-
   def authenticate
     if !signed_in?
       # store the location of where the user originally wished to go as a session varialble
       deny_access
     end
+  end
+
+  def admin_user
+    @user = User.find(params[:id])
+    # redirect to root if the current user is not an admin or if the admin is trying to delete itself
+    redirect_to(root_path) unless (current_user.admin? && !current_user?(@user))
+  end
+
+  def admin_user_authenticate
+    redirect_to(root_path) unless current_user.admin?
   end
 
   def deny_access

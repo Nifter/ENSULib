@@ -1,2 +1,23 @@
-<h1>Show page</h1>
-<%= @book.title %>, <%= @book.author %>, <%= @book.call_number %>, <%= @book.publication_year %>
+<h1><%= @book.title %></h1>
+<span class="title">
+	Title: <%= @book.title %>
+</span>
+<span class="author">
+	Author: <%= @book.author %>
+</span>
+<span class="publication_year">
+	Publication Year: <%= @book.publication_year %>
+</span>
+<span class="call_number">
+	Call Number: <%= @book.call_number %>
+</span>
+<span class="borrow_status">
+	<% if @book.borrowed_at? %>
+		Borrowed <%= time_ago_in_words(book.borrowed_at) %> ago
+		<% if current_user.admin? %>
+			 by <%= link_to @book.user.name user_path(@book.user) %>
+		<% end %>
+	<% else %>
+		In stock
+	<% end %>
+</span>

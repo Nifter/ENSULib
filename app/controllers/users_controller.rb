@@ -60,10 +60,4 @@ class UsersController < ApplicationController
       redirect_to(root_path) unless current_user?(@user)
     end
 
-    def admin_user
-      @user = User.find(params[:id])
-      # redirect to root if the current user is not an admin or if the admin is trying to delete itself
-      redirect_to(root_path) unless (current_user.admin? && !current_user?(@user))
-    end
-
 end
