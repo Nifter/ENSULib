@@ -1,6 +1,5 @@
-task :sample_data => :environment do
-  require 'faker'
-end
+
+require 'faker'
 
 namespace :db do # put under the 'rake db:something' heading
   desc "Fill database with sample data"
